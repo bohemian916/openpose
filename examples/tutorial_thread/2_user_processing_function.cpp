@@ -26,7 +26,7 @@ DEFINE_int32(logging_level,             3,              "The logging level. Inte
                                                         " 255 will not output any. Current OpenPose library messages are in the range 0-4: 1 for"
                                                         " low priority messages and 4 for important ones.");
 // Producer
-DEFINE_int32(camera,                    -1,             "The camera index for cv::VideoCapture. Integer in the range [0, 9]. Select a negative"
+DEFINE_string(camera,                    "",             "The camera index for cv::VideoCapture. Integer in the range [0, 9]. Select a negative"
                                                         " number (by default), to auto-detect and open the first available camera.");
 DEFINE_string(camera_resolution,        "1280x720",     "Size of the camera frames to ask for.");
 DEFINE_double(camera_fps,               30.0,           "Frame rate for the webcam (only used when saving video from webcam). Set this value to the"
