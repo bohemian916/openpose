@@ -19,14 +19,14 @@ namespace op
          * This constructor of VideoCaptureReader wraps cv::VideoCapture(const int).
          * @param index const int indicating the cv::VideoCapture constructor int argument, in the range [0, 9].
          */
-        explicit VideoCaptureReader(const int index, const bool throwExceptionIfNoOpened);
+//        explicit VideoCaptureReader(const int index, const bool throwExceptionIfNoOpened);
 
         /**
          * This constructor of VideoCaptureReader wraps cv::VideoCapture(const std::string).
          * @param path const std::string indicating the cv::VideoCapture constructor string argument.
          */
-        VideoCaptureReader(const std::string& path);
-
+//        VideoCaptureReader(const std::string& path);
+          VideoCaptureReader(const std::string& path, const ProducerType type);
         /**
          * Destructor of VideoCaptureReader. It releases the cv::VideoCapture member. It is virtual so that
          * any children class can implement its own destructor.

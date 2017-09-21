@@ -61,7 +61,7 @@ namespace op
         }
     }
 
-    ProducerType flagsToProducerType(const std::string& imageDirectory, const std::string& videoPath, const int webcamIndex)
+    ProducerType flagsToProducerType(const std::string& imageDirectory, const std::string& videoPath, const std::string webcamIndex)
     {
         try
         {
@@ -69,9 +69,9 @@ namespace op
             // Avoid duplicates (e.g. selecting at the time camera & video)
             if (!imageDirectory.empty() && !videoPath.empty())
                 error("Selected simultaneously image directory and video. Please, select only one.", __LINE__, __FUNCTION__, __FILE__);
-            else if (!imageDirectory.empty() && webcamIndex > 0)
+            else if (!imageDirectory.empty() && webcamIndex != "")
                 error("Selected simultaneously image directory and webcam. Please, select only one.", __LINE__, __FUNCTION__, __FILE__);
-            else if (!videoPath.empty() && webcamIndex > 0)
+            else if (!videoPath.empty() && webcamIndex != "")
                 error("Selected simultaneously video and webcam. Please, select only one.", __LINE__, __FUNCTION__, __FILE__);
 
             // Get desired ProducerType
@@ -89,7 +89,7 @@ namespace op
         }
     }
 
-    std::shared_ptr<Producer> flagsToProducer(const std::string& imageDirectory, const std::string& videoPath, const int webcamIndex,
+    std::shared_ptr<Producer> flagsToProducer(const std::string& imageDirectory, const std::string& videoPath, const std::string webcamIndex,
                                               const std::string& webcamResolution, const double webcamFps)
     {
         try
@@ -105,7 +105,7 @@ namespace op
             {
                 // cameraFrameSize
                 const auto webcamFrameSize = op::flagsToPoint(webcamResolution, "1280x720");
-                if (webcamIndex >= 0)
+                if (webcamIndex != "")
                 {
                     const auto throwExceptionIfNoOpened = true;
                     return std::make_shared<WebcamReader>(webcamIndex, webcamFrameSize, webcamFps, throwExceptionIfNoOpened);
@@ -116,7 +116,7 @@ namespace op
                     std::shared_ptr<WebcamReader> webcamReader;
                     for (auto index = 0 ; index < 10 ; index++)
                     {
-                        webcamReader = std::make_shared<WebcamReader>(index, webcamFrameSize, webcamFps, throwExceptionIfNoOpened);
+                        webcamReader = std::make_shared<WebcamReader>(webcamIndex, webcamFrameSize, webcamFps, throwExceptionIfNoOpened);
                         if (webcamReader->isOpened())
                         {
                             log("Auto-detecting camera index... Detected and opened camera " + std::to_string(index) + ".", Priority::High);
